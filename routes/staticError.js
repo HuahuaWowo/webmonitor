@@ -51,7 +51,7 @@ router.get("/gettabledata", async function (ctx, next) {
 
 router.get("/getdetail", async function (ctx, next) {
   const {page} = ctx.request.query;//解构获取get请求url？后的数据
-  const sql = `select * from error where type='static' and page=${page};`;
+  const sql = `select * from error where type='static' and page='${page}';`;
   const { data, msg, code } = await db.selectData(sql);
   ctx.body = {
     msg,
