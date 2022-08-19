@@ -38,15 +38,21 @@ function select(connection, sql) {
   return new Promise((resolve, reject) => {
     connection.query(sql, (err, data) => {
       // console.log(data)
+      let code = 0;
+      let msg = "查询成功";
       if (err) {
         reject(err);
         throw err;
       }
+      if (data.length === 0) {
+        msg = "未查询到相关数据";
+        code = 1;
+      }
       resolve({
-        msg:"查询成功",
-        code:0,
-        data
-    });
+        msg,
+        code,
+        data,
+      });
     });
   });
 }
@@ -58,13 +64,13 @@ function add(connection, sql, params) {
       if (err) {
         resolve({
           msg: "添加失败",
-          code:1,
+          code: 1,
         });
         throw err;
       }
       resolve({
         msg: "添加成功",
-        code:0,
+        code: 0,
       });
     });
   });
